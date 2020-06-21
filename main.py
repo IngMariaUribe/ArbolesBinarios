@@ -29,3 +29,5 @@ def lfo(ao):
       return 2
 
     return 1+lfo(ao[1:]) 
+print (imprimirIn(estructurar(procesar(input("Ingresa algo pls ")))
+))
