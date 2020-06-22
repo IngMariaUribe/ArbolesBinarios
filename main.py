@@ -16,18 +16,52 @@ def insertar(arbol, valor):
 def procesar(entrada):
     return entrada.split()
 
-def estructurar(ao): 
-    if(ao[0]=="+" or ao[0]=="-" or ao[0]=="*" or ao[0]=="/" ):  
-      if(ao[2]!="+" or ao[2]!="-" or ao[2]!="*" or ao[2]!="/"):
-        return Nodo(ao[0], estructurar(ao[1:]),estructurar(ao[ lfo(ao): ]))
-         
+def estructurar(ao):
+  if (len(ao)>0):
+    if(ao[0]=="+" or ao[0]=="-" or ao[0]=="*" or ao[0]=="/" ):
+      if identificar(ao,0,0,len(ao))==True:
+       return Nodo(ao[0], estructurar(ao[1:(len(ao)//2)+1]),estructurar(ao[(len(ao)//2)+1:]))
+      else:
+       """ if(ao[(len(ao)//2)+2]== "+" or ao[(len(ao)//2)+2]== "-" or ao[(len(ao)//2)+2]== "*" or ao[(len(ao)//2)+2]== "/" ):"""
+          #Para la parte izquierda mayor
+        return Nodo(ao[0], estructurar(ao[1:(len(ao)//2)+2]),estructurar(ao[(len(ao)//2)+2:]))
+"""        else :
+          #Para la parte derecha mayor
+          return Nodo(ao[0], estructurar(ao[1:(len(ao)//2)]),estructurar(ao[(len(ao)//2):])) """
 
     return Nodo(ao[0])
 
-def lfo(ao):
-    if ((ao[0]!="+" or ao[0]!="-" or ao[0]!="*" or ao[0]!="/") and ((ao[1]!="+" or ao[1]!="-" or ao[1]!="*" or ao[1]!="/"))):
-      return 2
 
-    return 1+lfo(ao[1:]) 
-print (imprimirIn(estructurar(procesar(input("Ingresa algo pls ")))
-))
+def identificar(ao,cn,co,t):
+   if(len(ao)>0): 
+    if (ao[0]=="+" or ao[0]=="-" or ao[0]=="*" or ao[0]=="/"):
+      return identificar(ao[1:],cn,co+1,t)
+    return identificar(ao[1:],cn+1,co,t)
+   if(t<=3):
+     return True
+   return simetria(cn,co)
+
+def simetria(cn,co):
+    if(((co-1)*2)==cn):    
+      return True
+    return False
+ 
+
+def operar(arbol):
+  if  (not arbol.valor == '+') and  (not arbol.valor == '-' ) and ( not arbol.valor == '*') and (not arbol.valor == '/' ):
+    return int(arbol.valor) 
+  elif arbol.valor == '+' :
+    return ( operar(arbol.izquierda) + operar(arbol.derecha))
+  elif arbol.valor == '-' :
+    return ( operar(arbol.izquierda) - operar(arbol.derecha))
+  elif arbol.valor == '*' :
+    return ( operar(arbol.izquierda) * operar(arbol.derecha))
+  elif arbol.valor == '/' :
+    return ( operar(arbol.izquierda) / operar(arbol.derecha))
+
+def imprimir(arbol) :
+   print("Esta es la impresion")
+   print (imprimirIn(arbol))
+   print("Imprimir operación")
+
+imprimir(estructurar(procesar(input("Ingresa algo pls "))))
