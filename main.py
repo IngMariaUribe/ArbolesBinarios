@@ -22,12 +22,12 @@ def estructurar(ao):
       if identificar(ao,0,0,len(ao))==True:
        return Nodo(ao[0], estructurar(ao[1:(len(ao)//2)+1]),estructurar(ao[(len(ao)//2)+1:]))
       else:
-       """ if(ao[(len(ao)//2)+2]== "+" or ao[(len(ao)//2)+2]== "-" or ao[(len(ao)//2)+2]== "*" or ao[(len(ao)//2)+2]== "/" ):"""
-          #Para la parte izquierda mayor
-        return Nodo(ao[0], estructurar(ao[1:(len(ao)//2)+2]),estructurar(ao[(len(ao)//2)+2:]))
-"""        else :
+        if(ao[(len(ao)//2)-1]== "+" or ao[(len(ao)//2)-1]== "-" or ao[(len(ao)//2)-1]== "*" or ao[(len(ao)//2)-1]== "/" ):
+          return Nodo(ao[0], estructurar(ao[1:(len(ao)//2)+2]),estructurar(ao[(len(ao)//2)+2:]))
+        else :
+          print (ao[(len(ao)//2)])
           #Para la parte derecha mayor
-          return Nodo(ao[0], estructurar(ao[1:(len(ao)//2)]),estructurar(ao[(len(ao)//2):])) """
+          return Nodo(ao[0], estructurar(ao[1:(len(ao)//2)]),estructurar(ao[(len(ao)//2):])) 
 
     return Nodo(ao[0])
 
@@ -63,5 +63,6 @@ def imprimir(arbol) :
    print("Esta es la impresion")
    print (imprimirIn(arbol))
    print("Imprimir operación")
+   print(operar(arbol))
 
 imprimir(estructurar(procesar(input("Ingresa algo pls "))))
